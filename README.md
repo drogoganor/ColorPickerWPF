@@ -1,18 +1,25 @@
 # ColorPickerWPF
 
-![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker1.jpg)
+![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker1.png)
 
-A simple color picker control for WPF.
+A simple color picker control for WPF licensed under MIT. 
 
-You can invoke it as a dialog using:
+Contains two color gradient images to sample from, and custom palette support.
 
-`ColorPickerWPF.ColorPickerWindow.ShowDialog(color);`
+You can invoke it as a dialog using: `ColorPickerWPF.ColorPickerWindow.ShowDialog(color);`
 
-Or use the control itself in your application `ColorPickerWPF.ColorPickerControl`
+Or use the control itself in your application: `ColorPickerWPF.ColorPickerControl`
 
-![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker2.jpg)
+![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker2.png)
+> Second gradient picker image.
 
 Please note that this is an amateur work and bugs are certainly present. But it might meet your needs.
 
-[Nuget gallery link](https://www.nuget.org/packages/ColorPickerWPF)
+[ColorPickerWPF on Nuget Gallery](https://www.nuget.org/packages/ColorPickerWPF)
+
+## Thanks to
+
+[Fatcow Icons](http://www.fatcow.com/free-icons) for the dialog window icon.
+
+[WriteableBitmapEx](https://github.com/teichgraf/WriteableBitmapEx/) for image manipulation code.
 
