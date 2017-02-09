@@ -217,6 +217,16 @@ namespace ColorPickerWPF
             }
         }
 
+        private void ASlider_OnOnValueChanged(double value)
+        {
+            if (!IsSettingValues)
+            {
+                var val = (byte)value;
+                Color.A = val;
+                SetColor(Color);
+            }
+        }
+
         private void SSlider_OnOnValueChanged(double value)
         {
             if (!IsSettingValues)
@@ -333,5 +343,6 @@ namespace ColorPickerWPF
 
             }
         }
+
     }
 }

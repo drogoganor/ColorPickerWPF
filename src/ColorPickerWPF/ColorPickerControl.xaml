@@ -45,16 +45,17 @@
         <Grid Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Label x:Name="rgbLabel" Content="RGBA (Red, Green, Blue, Alpha)" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <colorPickerWpf:SliderRow x:Name="RSlider" HorizontalAlignment="Stretch" Margin="0,26,0,0" VerticalAlignment="Top"
-                             OnValueChanged="RSlider_OnOnValueChanged"/>
+                             OnValueChanged="RSlider_OnOnValueChanged" FormatString="F0" />
             <colorPickerWpf:SliderRow x:Name="GSlider" HorizontalAlignment="Stretch" Margin="0,54,0,0" VerticalAlignment="Top"
-                             OnValueChanged="GSlider_OnOnValueChanged"/>
+                             OnValueChanged="GSlider_OnOnValueChanged" FormatString="F0"/>
             <colorPickerWpf:SliderRow x:Name="BSlider" HorizontalAlignment="Stretch" Margin="0,82,0,0" VerticalAlignment="Top"
-                             OnValueChanged="BSlider_OnOnValueChanged"/>
-            <colorPickerWpf:SliderRow x:Name="ASlider" HorizontalAlignment="Stretch" Margin="0,110,0,0" VerticalAlignment="Top"/>
+                             OnValueChanged="BSlider_OnOnValueChanged" FormatString="F0"/>
+            <colorPickerWpf:SliderRow x:Name="ASlider" HorizontalAlignment="Stretch" Margin="0,110,0,0" VerticalAlignment="Top"
+                                       OnValueChanged="ASlider_OnOnValueChanged" FormatString="F0"/>
 
             <Label x:Name="hsvLabel" Content="HSL (Hue, Saturation, Lightness)" HorizontalAlignment="Left" Margin="0,143,0,0" VerticalAlignment="Top"/>
             <colorPickerWpf:SliderRow x:Name="HSlider" HorizontalAlignment="Stretch" Margin="0,169,0,0" VerticalAlignment="Top"
-                             OnValueChanged="HSlider_OnOnValueChanged"/>
+                             OnValueChanged="HSlider_OnOnValueChanged" FormatString="F0"/>
             <colorPickerWpf:SliderRow x:Name="SSlider" HorizontalAlignment="Stretch" Margin="0,197,0,0" VerticalAlignment="Top"
                              OnValueChanged="SSlider_OnOnValueChanged"/>
             <colorPickerWpf:SliderRow x:Name="LSlider" HorizontalAlignment="Stretch" Margin="0,225,0,0" VerticalAlignment="Top"

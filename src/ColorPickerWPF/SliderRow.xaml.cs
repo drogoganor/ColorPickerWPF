@@ -12,8 +12,14 @@ namespace ColorPickerWPF
 
         public event SliderRowValueChangedHandler OnValueChanged;
 
+        public string FormatString { get; set; }
+
+        protected bool UpdatingValues = false;
+
         public SliderRow()
         {
+            FormatString = "F2";
+
             InitializeComponent();
         }
 
@@ -22,23 +28,31 @@ namespace ColorPickerWPF
             // Set textbox
             var value = Slider.Value;
 
-            TextBox.Text = value.ToString("F2");
-
-            OnValueChanged?.Invoke(value);
+            if (!UpdatingValues)
+            {
+                UpdatingValues = true;
+                TextBox.Text = value.ToString(FormatString);
+                OnValueChanged?.Invoke(value);
+                UpdatingValues = false;
+            }
         }
 
         private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var text = TextBox.Text;
-            bool ok = false;
-            double parsedValue = 0;
-
-            ok = double.TryParse(text, out parsedValue);
-            if (ok)
+            if (!UpdatingValues)
             {
-                Slider.Value = parsedValue;
+                var text = TextBox.Text;
+                bool ok = false;
+                double parsedValue = 0;
 
-                OnValueChanged?.Invoke(parsedValue);
+                ok = double.TryParse(text, out parsedValue);
+                if (ok)
+                {
+                    UpdatingValues = true;
+                    Slider.Value = parsedValue;
+                    OnValueChanged?.Invoke(parsedValue);
+                    UpdatingValues = false;
+                }
             }
         }
     }

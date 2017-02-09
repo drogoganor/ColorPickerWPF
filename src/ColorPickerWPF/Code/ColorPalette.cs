@@ -74,8 +74,12 @@ namespace ColorPickerWPF.Code
                 Colors.ForestGreen,
                 Colors.Firebrick,
                 Colors.DarkViolet,
+                Colors.Aquamarine,
+                Colors.CornflowerBlue,
+                Colors.Bisque,
                 Colors.WhiteSmoke,
                 Colors.AliceBlue,
+
 
                 Color.FromArgb(255, 5, 5, 5),
                 Color.FromArgb(255, 15, 15, 15),Color.FromArgb(255, 35, 35, 35),
