@@ -2,18 +2,27 @@
 
 ![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker1.png)
 
-A simple color picker control for WPF licensed under MIT. 
+A simple color picker control for WPF licensed under MIT. Contains two color gradient images to sample from, and custom palette support.
 
-Contains two color gradient images to sample from, and custom palette support.
+You can invoke it as a dialog using: 
 
-You can invoke it as a dialog using: `ColorPickerWPF.ColorPickerWindow.ShowDialog(color);`
+`Color color;`
 
-Or use the control itself in your application: `ColorPickerWPF.ColorPickerControl`
+`bool ok = ColorPickerWPF.ColorPickerWindow.ShowDialog(out color);`
+
+Or use the user control itself in your application: `ColorPickerWPF.ColorPickerControl`
 
 ![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker2.png)
-> Second gradient picker image.
 
-Please note that this is an amateur work and bugs are certainly present. But it might meet your needs.
+The user can define their own palette by selecting a color and ctrl+clicking a swatch in the custom colors section (lower right).
+
+The custom palette can be saved to an XML file in the application folder or loaded from the same. 
+
+The dialog won't load the custom palette automatically by default, but you can tell it to with the optional arguments to `ColorPickerWindow.ShowDialog(out Color color, bool loadCustomPalette = false, string customPaletteName = null)` or with the control methods `ColorPickerControl.LoadDefaultCustomPalette()` or `ColorPickerControl.LoadCustomPalette(string filename)`.
+
+The palette file, default "CustomPalette.xml", contains both the custom palette colors and the inbuilt colors. You can create your own inbuilt palette if you create an instance of `ColorPickerWPF.Code.ColorPalette`, populate its data accordingly, and save to file using `ColorPalette.SaveToXml(string filename)`. You can then distribute your application with this custom palette.
+
+Unfortunately there is no mechanism for customizing the color gradient sample images at this time, or indeed any other customization. If you require further customization I recommend cloning the repo and adding ColorPickerWPF to your solution.
 
 [ColorPickerWPF on Nuget Gallery](https://www.nuget.org/packages/ColorPickerWPF)
 
