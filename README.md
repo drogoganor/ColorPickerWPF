@@ -34,9 +34,9 @@ An example showing the simple view and loading a custom palette file:
 
 This would show the dialog in simple view, and load the palette file "MyPalette.xml".
 
-If you are using the `ColorPickerControl` instead of the dialog, you can load custom palettes with: `ColorPickerControl.LoadDefaultCustomPalette()` or `ColorPickerControl.LoadCustomPalette(string filename)`.
+If you are using the `ColorPickerControl` instead of the dialog, you can load custom palettes with: `LoadDefaultCustomPalette()` or `LoadCustomPalette(string filename)`.
 
-The palette file, default "CustomPalette.xml", contains both the custom palette colors and the inbuilt colors. You can create your own inbuilt palette if you create an instance of `ColorPickerWPF.Code.ColorPalette`, populate its data accordingly, and save to file using `ColorPalette.SaveToXml(string filename)`. You can then distribute your application with this custom palette file.
+The palette file, default "ColorPalette.xml", contains both the custom palette colors and the inbuilt colors. You can create your own inbuilt palette if you create an instance of `ColorPickerWPF.Code.ColorPalette`, populate its data accordingly, and save to file using `ColorPalette.SaveToXml(string filename)`. You can then distribute your application with this custom palette file.
 
 Unfortunately there is no mechanism for customizing the color gradient sample images at this time, or indeed any other customization. If you require further customization I recommend cloning the repo and adding ColorPickerWPF to your solution.
 
