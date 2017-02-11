@@ -18,7 +18,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" Background="{Binding HexString}" BorderThickness="2" Width="18" Height="18" Margin="0,0,2,2" MouseDown="UIElement_OnMouseDown">
+                    <Border BorderBrush="Black" Background="{Binding HexString}" BorderThickness="1" Width="18" Height="18" Margin="0,0,2,2" MouseDown="UIElement_OnMouseDown">
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -13,8 +13,8 @@
         <colorPickerWpf:ColorPickerControl x:Name="ColorPicker"  DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" MinHeight="372"/>
 
         <Grid DockPanel.Dock="Bottom" MinHeight="47">
-            <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="90,10,0,0" Height="27" Click="CloseButton_Click"/>
-            <Button x:Name="OKButton" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,10" Height="27" Click="OKButton_Click"/>
+            <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="90,10,0,0" Height="27" Click="CloseButton_Click" IsCancel="True"/>
+            <Button x:Name="OKButton" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,10" Height="27" Click="OKButton_Click" IsDefault="True"/>
             <Button x:Name="MinMaxViewButton" Content="&lt;&lt; Collapse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="243,10,0,0" Height="27" Click="MinMaxViewButton_OnClick"/>
             <TextBox x:Name="FilenameTextBox" HorizontalAlignment="Left" Height="23" Margin="332,12,0,0" TextWrapping="Wrap" Text="ColorPalette.xml" VerticalAlignment="Top" Width="100"/>
             <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Margin="437,10,0,0" Height="27" Click="SaveButton_Click"/>
