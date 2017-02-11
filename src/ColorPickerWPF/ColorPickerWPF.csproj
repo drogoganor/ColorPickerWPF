@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Code\ColorPalette.cs" />
+    <Compile Include="Code\ColorPickerDialogOptions.cs" />
     <Compile Include="Code\ColorSwatchItem.cs" />
     <Compile Include="Code\Util.cs" />
     <Compile Include="Code\WriteableFileObject.cs" />
@@ -90,6 +91,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="ColorPickerWPF.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

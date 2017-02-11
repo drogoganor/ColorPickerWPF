@@ -34,7 +34,15 @@ namespace ColorPickerWPF.Code
                Convert.ToByte(hex.Substring(5, 2), 16));
         }
 
-        
+        public static bool IsDialogFlagSet(this ColorPickerDialogOptions flags, ColorPickerDialogOptions flag)
+        {
+            if ((flags & flag) == flag)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public static BitmapImage GetBitmapImage(BitmapSource bitmapSource)
         {

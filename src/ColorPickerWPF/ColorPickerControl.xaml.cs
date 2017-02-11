@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ColorPickerWPF.Code;
+using ColorPickerWPF.Properties;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ColorPickerWPF
@@ -37,10 +38,22 @@ namespace ColorPickerWPF
         {
             InitializeComponent();
 
+            // Load from file if possible
+            /*
+            if (File.Exists(Settings.Default.DefaultColorPaletteFilename))
+            {
+                try
+                {
+                    ColorPalette = ColorPalette.LoadFromXml(Settings.Default.DefaultColorPaletteFilename);
+                }
+                catch (Exception ex)
+                {
+                    ex = ex;
+                }
+            }*/
+
             if (ColorPalette == null)
             {
-                // Load from file if possible
-
                 ColorPalette = new ColorPalette();
                 ColorPalette.InitializeDefaults();
             }
@@ -49,11 +62,7 @@ namespace ColorPickerWPF
             ColorSwatch1.AddRange(ColorPalette.BuiltInColors.Take(NumColorsFirstSwatch).ToArray());
 
             ColorSwatch2.AddRange(ColorPalette.BuiltInColors.Skip(NumColorsFirstSwatch).Take(NumColorsSecondSwatch).ToArray());
-
-            var megaColors = Util.GetWebColors();
-            //ColorSwatch2.AddRange(megaColors);
-
-
+            
             Swatch1.SwatchListBox.ItemsSource = ColorSwatch1;
             Swatch2.SwatchListBox.ItemsSource = ColorSwatch2;
 
@@ -335,6 +344,16 @@ namespace ColorPickerWPF
                     ColorPalette = ColorPalette.LoadFromXml(filename);
 
                     CustomColorSwatch.SwatchListBox.ItemsSource = ColorPalette.CustomColors.ToList();
+
+                    // Do regular one too
+
+                    ColorSwatch1.Clear();
+                    ColorSwatch2.Clear();
+                    ColorSwatch1.AddRange(ColorPalette.BuiltInColors.Take(NumColorsFirstSwatch).ToArray());
+                    ColorSwatch2.AddRange(ColorPalette.BuiltInColors.Skip(NumColorsFirstSwatch).Take(NumColorsSecondSwatch).ToArray());
+                    Swatch1.SwatchListBox.ItemsSource = ColorSwatch1;
+                    Swatch2.SwatchListBox.ItemsSource = ColorSwatch2;
+
                 }
                 catch (Exception ex)
                 {
@@ -347,7 +366,7 @@ namespace ColorPickerWPF
 
         public void LoadDefaultCustomPalette()
         {
-            LoadCustomPalette("ColorPalette.xml");
+            LoadCustomPalette(Settings.Default.DefaultColorPaletteFilename);
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using ColorPickerWPF.Code;
+using ColorPickerWPF.Properties;
 
 namespace ColorPickerWPF
 {
@@ -11,18 +13,34 @@ namespace ColorPickerWPF
     {
         protected readonly int WidthMax = 574;
         protected readonly int WidthMin = 342;
-        protected bool Collapsed = false;
+        protected bool SimpleMode { get; set; }
 
-        public static bool ShowDialog(out Color color, bool loadCustomPalette = false, string customPaletteName = null)
+
+
+        public ColorPickerWindow()
+        {
+            InitializeComponent();
+
+            FilenameTextBox.Text = Settings.Default.DefaultColorPaletteFilename;
+        }
+
+
+        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, string customPaletteName = null)
         {
             var instance = new ColorPickerWindow();
             color = instance.ColorPicker.Color;
 
-            if (loadCustomPalette)
+            if ((flags & ColorPickerDialogOptions.SimpleView) == ColorPickerDialogOptions.SimpleView)
+            {
+                instance.ToggleSimpleAdvancedView();
+            }
+
+            if ((flags & ColorPickerDialogOptions.LoadCustomPalette) == ColorPickerDialogOptions.LoadCustomPalette)
             {
                 if (!String.IsNullOrEmpty(customPaletteName))
                 {
                     instance.ColorPicker.LoadCustomPalette(customPaletteName);
+                    instance.FilenameTextBox.Text = customPaletteName;
                 }
                 else
                 {
@@ -40,13 +58,7 @@ namespace ColorPickerWPF
             return false;
         }
 
-        
 
-
-        public ColorPickerWindow()
-        {
-            InitializeComponent();
-        }
 
 
 
@@ -64,15 +76,31 @@ namespace ColorPickerWPF
 
         private void MinMaxViewButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Collapsed)
+            if (SimpleMode)
             {
-                Collapsed = false;
+                SimpleMode = false;
                 MinMaxViewButton.Content = "<< Collapse";
                 Width = WidthMax;
             }
             else
             {
-                Collapsed = true;
+                SimpleMode = true;
+                MinMaxViewButton.Content = "Expand >>";
+                Width = WidthMin;
+            }
+        }
+
+        public void ToggleSimpleAdvancedView()
+        {
+            if (SimpleMode)
+            {
+                SimpleMode = false;
+                MinMaxViewButton.Content = "<< Collapse";
+                Width = WidthMax;
+            }
+            else
+            {
+                SimpleMode = true;
                 MinMaxViewButton.Content = "Expand >>";
                 Width = WidthMin;
             }
