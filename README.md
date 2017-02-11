@@ -2,7 +2,7 @@
 
 ![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker1.png)
 
-A simple color picker control for WPF licensed under MIT. 
+A simple color picker control for WPF licensed under MIT. Contains two color gradient images to sample from, and custom palette support.
 
 You can invoke it as a dialog using: 
 
@@ -13,8 +13,6 @@ You can invoke it as a dialog using:
 Or use the user control itself in your application: `ColorPickerWPF.ColorPickerControl`
 
 ![screenshot](https://raw.githubusercontent.com/drogoganor/ColorPickerWPF/master/images/Picker2.png)
-
-Contains two color gradient images to sample from, and custom palette support.
 
 The user can define their own palette by selecting a color and ctrl+clicking a swatch in the custom colors section (lower right).
 
