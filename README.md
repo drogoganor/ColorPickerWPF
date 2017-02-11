@@ -6,9 +6,9 @@ A simple color picker control for WPF licensed under MIT.
 
 You can invoke it as a dialog using: 
 
-`Color color;
+`Color color;`
 
-bool ok = ColorPickerWPF.ColorPickerWindow.ShowDialog(out color);`
+`bool ok = ColorPickerWPF.ColorPickerWindow.ShowDialog(out color);`
 
 Or use the user control itself in your application: `ColorPickerWPF.ColorPickerControl`
 
