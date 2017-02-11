@@ -344,5 +344,11 @@ namespace ColorPickerWPF
             }
         }
 
+
+        public void LoadDefaultCustomPalette()
+        {
+            LoadCustomPalette("ColorPalette.xml");
+        }
+
     }
 }

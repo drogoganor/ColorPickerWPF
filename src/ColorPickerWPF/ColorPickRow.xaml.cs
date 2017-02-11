@@ -20,7 +20,7 @@ namespace ColorPickerWPF
         private void PickColorButton_OnClick(object sender, RoutedEventArgs e)
         {
             Color color;
-            if (ColorPickerWindow.ShowDialog(out color))
+            if (ColorPickerWindow.ShowDialog(out color, loadCustomPalette:true))
             {
                 SetColor(color);
             }

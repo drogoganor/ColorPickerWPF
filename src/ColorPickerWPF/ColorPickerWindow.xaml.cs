@@ -13,10 +13,22 @@ namespace ColorPickerWPF
         protected readonly int WidthMin = 342;
         protected bool Collapsed = false;
 
-        public static bool ShowDialog(out Color color)
+        public static bool ShowDialog(out Color color, bool loadCustomPalette = false, string customPaletteName = null)
         {
             var instance = new ColorPickerWindow();
             color = instance.ColorPicker.Color;
+
+            if (loadCustomPalette)
+            {
+                if (!String.IsNullOrEmpty(customPaletteName))
+                {
+                    instance.ColorPicker.LoadCustomPalette(customPaletteName);
+                }
+                else
+                {
+                    instance.ColorPicker.LoadDefaultCustomPalette();
+                }
+            }
             
             var result = instance.ShowDialog();
             if (result.HasValue && result.Value)

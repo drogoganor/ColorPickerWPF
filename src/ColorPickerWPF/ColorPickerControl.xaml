@@ -62,7 +62,7 @@
                              OnValueChanged="LSlider_OnOnValueChanged"/>
             <colorPickerWpf:ColorPickerSwatch x:Name="CustomColorSwatch" HorizontalAlignment="Left" Margin="4,289,0,0" VerticalAlignment="Stretch" Width="230" 
                                               Editable="true" OnPickColor="Swatch_OnOnPickColor"/>
-            <Label x:Name="label1" Content="Custom Colors" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="label1" Content="Custom Colors (Ctrl+Click to set)" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top"/>
 
 
 
