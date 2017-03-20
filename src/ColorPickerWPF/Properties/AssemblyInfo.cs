@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DMW")]
 [assembly: AssemblyProduct("ColorPickerWPF")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017 Licensed under MIT")]
 [assembly: AssemblyTrademark("DMW")]
 [assembly: AssemblyCulture("")]
 
@@ -51,7 +51,7 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.6.0")]
+[assembly: AssemblyVersion("1.0.7.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: Guid("402643B4-06DB-4BC5-B8B1-96478AF6D7F5")]
 
