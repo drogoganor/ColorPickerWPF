@@ -128,6 +128,7 @@ namespace ColorPickerWPF
             ColorDisplayBorder.Background = new SolidColorBrush(Color);
 
             IsSettingValues = false;
+            OnPickColor?.Invoke(color);
 
         }
 
@@ -176,7 +177,6 @@ namespace ColorPickerWPF
         private void Swatch_OnOnPickColor(Color color)
         {
             SetColor(color);
-            OnPickColor?.Invoke(color);
         }
 
         private void HSlider_OnOnValueChanged(double value)
