@@ -162,9 +162,27 @@ namespace ColorPickerWPF
 
         private void SampleImage_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
+            Mouse.Capture(this);
+
+            this.MouseMove += ColorPickerControl_MouseMove;
+            this.MouseUp += ColorPickerControl_MouseUp;
+        }
+
+
+        private void ColorPickerControl_MouseMove(object sender, MouseEventArgs e)
+        {
             var pos = e.GetPosition(SampleImage);
             var img = SampleImage.Source as BitmapSource;
-            SampleImageClick(img, pos);
+                                         
+            if (pos.X > 0 && pos.Y > 0 && pos.X < img.PixelWidth && pos.Y < img.PixelHeight)
+                SampleImageClick(img, pos);
+        }
+
+        private void ColorPickerControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Mouse.Capture(null);
+            this.MouseMove -= ColorPickerControl_MouseMove;
+            this.MouseUp -= ColorPickerControl_MouseUp;
         }
 
         private void SampleImage2_OnMouseDown(object sender, MouseButtonEventArgs e)
