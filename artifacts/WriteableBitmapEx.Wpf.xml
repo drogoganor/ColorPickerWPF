@@ -251,6 +251,19 @@
             <param name="color">If not Colors.White, will tint the source image. A partially transparent color and the image will be drawn partially transparent. If the BlendMode is ColorKeying, this color will be used as color key to mask all pixels with this value out.</param>
             <param name="blendMode">The blending mode <see cref="T:System.Windows.Media.Imaging.WriteableBitmapExtensions.BlendMode"/>.</param>
         </member>
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.BlitRender(System.Windows.Media.Imaging.WriteableBitmap,System.Windows.Media.Imaging.WriteableBitmap,System.Boolean,System.Single,System.Windows.Media.GeneralTransform)">
+            <summary>
+            Renders a bitmap using any affine transformation and transparency into this bitmap
+            Unlike Silverlight's Render() method, this one uses 2-3 times less memory, and is the same or better quality
+            The algorithm is simple dx/dy (bresenham-like) step by step painting, optimized with fixed point and fast bilinear filtering
+            It's used in Fantasia Painter for drawing stickers and 3D objects on screen
+            </summary>
+            <param name="bmp">Destination bitmap.</param>
+            <param name="source">The source WriteableBitmap.</param>
+            <param name="shouldClear">If true, the the destination bitmap will be set to all clear (0) before rendering.</param>
+            <param name="opacity">opacity of the source bitmap to render, between 0 and 1 inclusive</param>
+            <param name="transform">Transformation to apply</param>
+        </member>
         <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.ToByteArray(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32)">
             <summary>
             Copies the Pixels from the WriteableBitmap into a ARGB byte array starting at a specific Pixels index.
@@ -547,7 +560,7 @@
             <summary>
             Draws a series of filled, cubic Beziér splines each defined by start, end and two control points. 
             The ending point of the previous curve is used as starting point for the next. 
-            Therfore the inital curve needs four points and the subsequent 3 (2 control and 1 end point).
+            Therefore the initial curve needs four points and the subsequent 3 (2 control and 1 end point).
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="points">The points for the curve in x and y pairs, therefore the array is interpreted as (x1, y1, cx1, cy1, cx2, cy2, x2, y2, cx3, cx4 ..., xn, yn).</param>
@@ -557,7 +570,7 @@
             <summary>
             Draws a series of filled, cubic Beziér splines each defined by start, end and two control points. 
             The ending point of the previous curve is used as starting point for the next. 
-            Therfore the inital curve needs four points and the subsequent 3 (2 control and 1 end point).
+            Therefore the initial curve needs four points and the subsequent 3 (2 control and 1 end point).
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="points">The points for the curve in x and y pairs, therefore the array is interpreted as (x1, y1, cx1, cy1, cx2, cy2, x2, y2, cx3, cx4 ..., xn, yn).</param>
@@ -716,7 +729,23 @@
         </member>
         <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawPolyline(System.Windows.Media.Imaging.WriteableBitmap,System.Int32[],System.Int32)">
             <summary>
+            Draws a polyline anti-aliased. Add the first point also at the end of the array if the line should be closed.
+            </summary>
+            <param name="bmp">The WriteableBitmap.</param>
+            <param name="points">The points of the polyline in x and y pairs, therefore the array is interpreted as (x1, y1, x2, y2, ..., xn, yn).</param>
+            <param name="color">The color for the line.</param>
+        </member>
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawPolylineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32[],System.Windows.Media.Color)">
+            <summary>
             Draws a polyline. Add the first point also at the end of the array if the line should be closed.
+            </summary>
+            <param name="bmp">The WriteableBitmap.</param>
+            <param name="points">The points of the polyline in x and y pairs, therefore the array is interpreted as (x1, y1, x2, y2, ..., xn, yn).</param>
+            <param name="color">The color for the line.</param>
+        </member>
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawPolylineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32[],System.Int32)">
+            <summary>
+            Draws a polyline anti-aliased. Add the first point also at the end of the array if the line should be closed.
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="points">The points of the polyline in x and y pairs, therefore the array is interpreted as (x1, y1, x2, y2, ..., xn, yn).</param>
@@ -884,7 +913,7 @@
             <summary>
             Draws a series of cubic Beziér splines each defined by start, end and two control points. 
             The ending point of the previous curve is used as starting point for the next. 
-            Therfore the inital curve needs four points and the subsequent 3 (2 control and 1 end point).
+            Therefore the initial curve needs four points and the subsequent 3 (2 control and 1 end point).
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="points">The points for the curve in x and y pairs, therefore the array is interpreted as (x1, y1, cx1, cy1, cx2, cy2, x2, y2, cx3, cx4 ..., xn, yn).</param>
@@ -894,7 +923,7 @@
             <summary>
             Draws a series of cubic Beziér splines each defined by start, end and two control points. 
             The ending point of the previous curve is used as starting point for the next. 
-            Therfore the inital curve needs four points and the subsequent 3 (2 control and 1 end point).
+            Therefore the initial curve needs four points and the subsequent 3 (2 control and 1 end point).
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="points">The points for the curve in x and y pairs, therefore the array is interpreted as (x1, y1, cx1, cy1, cx2, cy2, x2, y2, cx3, cx4 ..., xn, yn).</param>
@@ -1016,7 +1045,7 @@
             Rotates the bitmap in 90° steps clockwise and returns a new rotated WriteableBitmap.
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
-            <param name="angle">The angle in degress the bitmap should be rotated in 90° steps clockwise.</param>
+            <param name="angle">The angle in degrees the bitmap should be rotated in 90° steps clockwise.</param>
             <returns>A new WriteableBitmap that is a rotated version of the input.</returns>
         </member>
         <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.RotateFree(System.Windows.Media.Imaging.WriteableBitmap,System.Double,System.Boolean)">
@@ -1030,13 +1059,13 @@
         </member>
         <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.Flip(System.Windows.Media.Imaging.WriteableBitmap,System.Windows.Media.Imaging.WriteableBitmapExtensions.FlipMode)">
             <summary>
-            Flips (reflects the image) eiter vertical or horizontal.
+            Flips (reflects the image) either vertical or horizontal.
             </summary>
             <param name="bmp">The WriteableBitmap.</param>
             <param name="flipMode">The flip mode.</param>
             <returns>A new WriteableBitmap that is a flipped version of the input.</returns>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineBresenham(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineBresenham(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using the Bresenham algorithm.
             </summary>
@@ -1046,8 +1075,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineBresenham(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineBresenham(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using the Bresenham algorithm.
             </summary>
@@ -1057,8 +1087,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineDDA(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineDDA(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using a DDA algorithm (Digital Differential Analyzer).
             </summary>
@@ -1068,8 +1099,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineDDA(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineDDA(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using a DDA algorithm (Digital Differential Analyzer).
             </summary>
@@ -1079,8 +1111,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using an optimized DDA.
             </summary>
@@ -1090,8 +1123,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using an optimized DDA.
             </summary>
@@ -1101,8 +1135,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLine(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a colored line by connecting two points using an optimized DDA. 
             Uses the pixels array and the width directly for best performance.
@@ -1115,8 +1150,9 @@
             <param name="x2">The x-coordinate of the end point.</param>
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="color">The color for the line.</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLinePenned(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Imaging.WriteableBitmap)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLinePenned(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Imaging.WriteableBitmap,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a line using a pen / stamp for the line 
             </summary>
@@ -1129,7 +1165,7 @@
             <param name="y2">The y-coordinate of the end point.</param>
             <param name="penBmp">The pen bitmap.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLinePenned(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Imaging.BitmapContext)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLinePenned(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Imaging.BitmapContext,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws a line using a pen / stamp for the line 
             </summary>
@@ -1153,7 +1189,7 @@
             <param name="y">The y.</param>
             <returns></returns>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineWu(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineWu(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws an anti-aliased, alpha blended, colored line by connecting two points using Wu's antialiasing algorithm
             Uses the pixels array and the width directly for best performance.
@@ -1167,8 +1203,9 @@
             <param name="sr">Premultiplied red color component</param>
             <param name="sg">Premultiplied green color component</param>
             <param name="sb">Premultiplied blue color component</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineWu(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineWu(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary>
             Draws an anti-aliased, alpha-blended, colored line by connecting two points using Wu's antialiasing algorithm
             Uses the pixels array and the width directly for best performance.
@@ -1184,8 +1221,9 @@
             <param name="sr">Premultiplied red color component</param>
             <param name="sg">Premultiplied green color component</param>
             <param name="sb">Premultiplied blue color component</param>
+            <param name="clipRect">The region in the image to restrict drawing to.</param>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line with a desired stroke thickness
             <param name="context">The context containing the pixels as int RGBA value.</param>
@@ -1197,7 +1235,7 @@
             <param name="strokeThickness">The stroke thickness of the line.</param>
             </summary>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line with a desired stroke thickness
             <param name="bmp">The WriteableBitmap.</param>
@@ -1209,7 +1247,7 @@
             <param name="strokeThickness">The stroke thickness of the line.</param>
             </summary>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line with a desired stroke thickness
             <param name="context">The context containing the pixels as int RGBA value.</param>
@@ -1221,7 +1259,7 @@
             <param name="strokeThickness">The stroke thickness of the line.</param>
             </summary>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line with a desired stroke thickness
             <param name="bmp">The WriteableBitmap.</param>
@@ -1233,7 +1271,7 @@
             <param name="strokeThickness">The stroke thickness of the line.</param>
             </summary>
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Windows.Media.Color,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line, using an optimized version of Gupta-Sproull algorithm 
             From http://nokola.com/blog/post/2010/10/14/Anti-aliased-Lines-And-Optimizing-Code-for-Windows-Phone-7e28093First-Look.aspx
@@ -1245,7 +1283,7 @@
             <param name="color">The color for the line.</param>
             </summary> 
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.WriteableBitmap,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line, using an optimized version of Gupta-Sproull algorithm 
             From http://nokola.com/blog/post/2010/10/14/Anti-aliased-Lines-And-Optimizing-Code-for-Windows-Phone-7e28093First-Look.aspx
@@ -1257,7 +1295,7 @@
             <param name="color">The color for the line.</param>
             </summary> 
         </member>
-        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.DrawLineAa(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Nullable{System.Windows.Rect})">
             <summary> 
             Draws an anti-aliased line, using an optimized version of Gupta-Sproull algorithm 
             From http://nokola.com/blog/post/2010/10/14/Anti-aliased-Lines-And-Optimizing-Code-for-Windows-Phone-7e28093First-Look.aspx
@@ -1308,7 +1346,7 @@
         </member>
         <member name="F:System.Windows.Media.Imaging.WriteableBitmapExtensions.BlendMode.Alpha">
             <summary>
-            Alpha blendiing uses the alpha channel to combine the source and destination. 
+            Alpha blending uses the alpha channel to combine the source and destination. 
             </summary>
         </member>
         <member name="F:System.Windows.Media.Imaging.WriteableBitmapExtensions.BlendMode.Additive">
@@ -1372,7 +1410,7 @@
         </member>
         <member name="F:System.Windows.Media.Imaging.WriteableBitmapExtensions.Edge.Sloap">
             <summary>
-            The sloap of the edge.
+            The slope of the edge.
             </summary>
         </member>
         <member name="M:System.Windows.Media.Imaging.WriteableBitmapExtensions.Edge.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
@@ -1462,7 +1500,7 @@
         </member>
         <member name="M:System.Windows.Media.Imaging.BitmapContext.BlockCopy(System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Windows.Media.Imaging.BitmapContext,System.Int32,System.Int32)">
             <summary>
-            Performs a Copy operation from source Bto destination BitmapContext
+            Performs a Copy operation from source to destination BitmapContext
             </summary>
             <remarks>Equivalent to calling Buffer.BlockCopy in Silverlight, or native memcpy in WPF</remarks>
         </member>
@@ -1550,6 +1588,27 @@
             </summary>
             <param name="source">The source bitmap.</param>
             <returns></returns>
+        </member>
+        <member name="M:System.Windows.Media.Imaging.BitmapFactory.FromResource(System.String)">
+            <summary>
+            Loads an image from the applications resource file and returns a new WriteableBitmap.
+            </summary>
+            <param name="relativePath">Only the relative path to the resource file. The assembly name is retrieved automatically.</param>
+            <returns>A new WriteableBitmap containing the pixel data.</returns>
+        </member>
+        <member name="M:System.Windows.Media.Imaging.BitmapFactory.FromContent(System.String)">
+            <summary>
+            Loads an image from the applications content and returns a new WriteableBitmap.
+            </summary>
+            <param name="relativePath">Only the relative path to the content file.</param>
+            <returns>A new WriteableBitmap containing the pixel data.</returns>
+        </member>
+        <member name="M:System.Windows.Media.Imaging.BitmapFactory.FromStream(System.IO.Stream)">
+            <summary>
+            Loads the data from an image stream and returns a new WriteableBitmap.
+            </summary>
+            <param name="stream">The stream with the image data.</param>
+            <returns>A new WriteableBitmap containing the pixel data.</returns>
         </member>
         <member name="T:System.Windows.Media.Imaging.WriteableBitmapContextExtensions">
             <summary>

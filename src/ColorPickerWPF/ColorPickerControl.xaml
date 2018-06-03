@@ -42,7 +42,7 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Label x:Name="rgbLabel" Content="RGBA (Red, Green, Blue, Alpha)" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label x:Name="rgbLabel" Content="Red, Green, Blue, Alpha" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <colorPickerWpf:SliderRow x:Name="RSlider" HorizontalAlignment="Stretch" Margin="0,26,0,0" VerticalAlignment="Top"
                              OnValueChanged="RSlider_OnOnValueChanged" FormatString="F0" />
             <colorPickerWpf:SliderRow x:Name="GSlider" HorizontalAlignment="Stretch" Margin="0,54,0,0" VerticalAlignment="Top"
@@ -52,7 +52,7 @@
             <colorPickerWpf:SliderRow x:Name="ASlider" HorizontalAlignment="Stretch" Margin="0,110,0,0" VerticalAlignment="Top"
                                        OnValueChanged="ASlider_OnOnValueChanged" FormatString="F0"/>
 
-            <Label x:Name="hsvLabel" Content="HSL (Hue, Saturation, Lightness)" HorizontalAlignment="Left" Margin="0,143,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="hsvLabel" Content="Hue, Saturation, Value" HorizontalAlignment="Left" Margin="0,143,0,0" VerticalAlignment="Top"/>
             <colorPickerWpf:SliderRow x:Name="HSlider" HorizontalAlignment="Stretch" Margin="0,169,0,0" VerticalAlignment="Top"
                              OnValueChanged="HSlider_OnOnValueChanged" FormatString="F0"/>
             <colorPickerWpf:SliderRow x:Name="SSlider" HorizontalAlignment="Stretch" Margin="0,197,0,0" VerticalAlignment="Top"
@@ -61,7 +61,7 @@
                              OnValueChanged="LSlider_OnOnValueChanged"/>
             <colorPickerWpf:ColorPickerSwatch x:Name="CustomColorSwatch" HorizontalAlignment="Left" Margin="4,289,0,0" VerticalAlignment="Stretch" Width="230" 
                                               Editable="true" OnPickColor="Swatch_OnOnPickColor"/>
-            <Label x:Name="label1" Content="Custom Colors (Ctrl+Click to set)" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="customColorsLabel" Content="Custom Colors (Ctrl+Click to set)" HorizontalAlignment="Left" Margin="0,258,0,0" VerticalAlignment="Top"/>
 
 
 
@@ -76,7 +76,7 @@
                 <Border x:Name="ColorDisplayBorder" HorizontalAlignment="Left" VerticalAlignment="Top" 
                     BorderBrush="Black" Background="White" BorderThickness="2"  Width="58" Height="58" Margin="0,0,0,0"/>
 
-                <colorPickerWpf:ColorPickerSwatch x:Name="Swatch1" HorizontalAlignment="Left" Height="58" Margin="60,0,0,0" VerticalAlignment="Top" Width="260"
+                <colorPickerWpf:ColorPickerSwatch x:Name="Swatch1" HorizontalAlignment="Left" Height="60" Margin="60,0,0,0" VerticalAlignment="Top" Width="260"
                                            OnPickColor="Swatch_OnOnPickColor"/>
             </Grid>
             <colorPickerWpf:ColorPickerSwatch x:Name="Swatch2" HorizontalAlignment="Stretch" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Stretch"

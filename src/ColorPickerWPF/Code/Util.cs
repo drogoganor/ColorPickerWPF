@@ -4,11 +4,13 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
+using System.Xml;
+using System.Xml.Serialization;
 using Color = System.Windows.Media.Color;
 
 namespace ColorPickerWPF.Code
 {
-    public static class Util
+    internal static class Util
     {
         [DllImport("shlwapi.dll")]
         public static extern int ColorHLSToRGB(int H, int L, int S);
@@ -23,7 +25,7 @@ namespace ColorPickerWPF.Code
         
         public static string ToHexString(this Color c)
         {
-            return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+            return "#" + c.A.ToString("X2") + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
 
         public static Color ColorFromHexString(string hex)
@@ -179,5 +181,76 @@ namespace ColorPickerWPF.Code
             
             return list;
         }
+
+
+        public static void SaveToXml<T>(this T obj, string filename)
+        {
+            var xml = obj.GetXmlText();
+
+            File.WriteAllText(filename, xml);
+        }
+
+        public static string GetXmlText<T>(this T obj)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(T));
+
+            var sww = new StringWriter();
+
+            var settings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "    ",
+                NewLineOnAttributes = false,
+                //OmitXmlDeclaration = true
+            };
+            var writer = XmlWriter.Create(sww, settings);
+
+            xmlSerializer.Serialize(writer, obj);
+            var xml = sww.ToString();
+
+            writer.Close();
+            writer.Dispose();
+
+
+            return xml;
+        }
+
+        public static T LoadFromXml<T>(this T obj, string filename)
+        {
+            T result = default(T);
+            if (File.Exists(filename))
+            {
+                var sr = new StreamReader(filename);
+                var xr = new XmlTextReader(sr);
+
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                
+                result = (T)xmlSerializer.Deserialize(xr);
+
+                xr.Close();
+                sr.Close();
+                xr.Dispose();
+                sr.Dispose();
+            }
+            return result;
+        }
+
+        public static T LoadFromXmlText<T>(this T obj, string xml)
+        {
+            T result = default(T);
+            if (!String.IsNullOrEmpty(xml))
+            {
+                var xr = XmlReader.Create(new StringReader(xml));
+
+                var xmlSerializer = new XmlSerializer(typeof(T));
+                
+                result = (T)xmlSerializer.Deserialize(xr);
+
+                xr.Close();
+                xr.Dispose();
+            }
+            return result;
+        }
+
     }
 }

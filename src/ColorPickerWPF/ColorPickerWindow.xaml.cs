@@ -14,19 +14,19 @@ namespace ColorPickerWPF
         protected readonly int WidthMax = 574;
         protected readonly int WidthMin = 342;
         protected bool SimpleMode { get; set; }
-
-
-
+        
         public ColorPickerWindow()
         {
             InitializeComponent();
-
-            FilenameTextBox.Text = Settings.Default.DefaultColorPaletteFilename;
         }
-
-
-        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, string customPaletteName = null, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null)
+        
+        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null)
         {
+            if ((flags & ColorPickerDialogOptions.LoadCustomPalette) == ColorPickerDialogOptions.LoadCustomPalette)
+            {
+                ColorPickerSettings.UsingCustomPalette = true;
+            }
+
             var instance = new ColorPickerWindow();
             color = instance.ColorPicker.Color;
 
@@ -35,17 +35,9 @@ namespace ColorPickerWPF
                 instance.ToggleSimpleAdvancedView();
             }
 
-            if ((flags & ColorPickerDialogOptions.LoadCustomPalette) == ColorPickerDialogOptions.LoadCustomPalette)
+            if (ColorPickerSettings.UsingCustomPalette)
             {
-                if (!String.IsNullOrEmpty(customPaletteName))
-                {
-                    instance.ColorPicker.LoadCustomPalette(customPaletteName);
-                    instance.FilenameTextBox.Text = customPaletteName;
-                }
-                else
-                {
-                    instance.ColorPicker.LoadDefaultCustomPalette();
-                }
+                instance.ColorPicker.LoadDefaultCustomPalette();
             }
 
             if (customPreviewEventHandler != null)
@@ -62,11 +54,7 @@ namespace ColorPickerWPF
 
             return false;
         }
-
-
-
-
-
+        
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
@@ -84,13 +72,13 @@ namespace ColorPickerWPF
             if (SimpleMode)
             {
                 SimpleMode = false;
-                MinMaxViewButton.Content = "<< Collapse";
+                MinMaxViewButton.Content = "<< Simple";
                 Width = WidthMax;
             }
             else
             {
                 SimpleMode = true;
-                MinMaxViewButton.Content = "Expand >>";
+                MinMaxViewButton.Content = "Advanced >>";
                 Width = WidthMin;
             }
         }
@@ -100,32 +88,14 @@ namespace ColorPickerWPF
             if (SimpleMode)
             {
                 SimpleMode = false;
-                MinMaxViewButton.Content = "<< Collapse";
+                MinMaxViewButton.Content = "<< Simple";
                 Width = WidthMax;
             }
             else
             {
                 SimpleMode = true;
-                MinMaxViewButton.Content = "Expand >>";
+                MinMaxViewButton.Content = "Advanced >>";
                 Width = WidthMin;
-            }
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            var text = FilenameTextBox.Text;
-            if (!String.IsNullOrEmpty(text))
-            {
-                ColorPicker.SaveCustomPalette(text);
-            }
-        }
-
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
-        {
-            var text = FilenameTextBox.Text;
-            if (!String.IsNullOrEmpty(text))
-            {
-                ColorPicker.LoadCustomPalette(text);
             }
         }
     }

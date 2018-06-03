@@ -23,34 +23,35 @@ namespace ColorPickerWPF
 
         public event ColorPickerChangeHandler OnPickColor;
 
-        public List<ColorSwatchItem> ColorSwatch1 = new List<ColorSwatchItem>();
-        public List<ColorSwatchItem> ColorSwatch2 = new List<ColorSwatchItem>();
+        internal List<ColorSwatchItem> ColorSwatch1 = new List<ColorSwatchItem>();
+        internal List<ColorSwatchItem> ColorSwatch2 = new List<ColorSwatchItem>();
 
         public bool IsSettingValues = false;
 
         protected const int NumColorsFirstSwatch = 39;
         protected const int NumColorsSecondSwatch = 112;
 
-        public static ColorPalette ColorPalette;
+        internal static ColorPalette ColorPalette;
 
 
         public ColorPickerControl()
         {
             InitializeComponent();
 
+            ColorPickerSwatch.ColorPickerControl = this;
+
             // Load from file if possible
-            /*
-            if (File.Exists(Settings.Default.DefaultColorPaletteFilename))
+            if (ColorPickerSettings.UsingCustomPalette && File.Exists(ColorPickerSettings.CustomPaletteFilename))
             {
                 try
                 {
-                    ColorPalette = ColorPalette.LoadFromXml(Settings.Default.DefaultColorPaletteFilename);
+                    ColorPalette = ColorPalette.LoadFromXml(ColorPickerSettings.CustomPaletteFilename);
                 }
                 catch (Exception ex)
                 {
                     ex = ex;
                 }
-            }*/
+            }
 
             if (ColorPalette == null)
             {
@@ -66,7 +67,15 @@ namespace ColorPickerWPF
             Swatch1.SwatchListBox.ItemsSource = ColorSwatch1;
             Swatch2.SwatchListBox.ItemsSource = ColorSwatch2;
 
-            CustomColorSwatch.SwatchListBox.ItemsSource = ColorPalette.CustomColors;
+            if (ColorPickerSettings.UsingCustomPalette)
+            {
+                CustomColorSwatch.SwatchListBox.ItemsSource = ColorPalette.CustomColors;
+            }
+            else
+            {
+                customColorsLabel.Visibility = Visibility.Collapsed;
+                CustomColorSwatch.Visibility = Visibility.Collapsed;
+            }
 
 
             RSlider.Slider.Maximum = 255;
@@ -129,7 +138,14 @@ namespace ColorPickerWPF
 
             IsSettingValues = false;
             OnPickColor?.Invoke(color);
+        }
 
+        internal void CustomColorsChanged()
+        {
+            if (ColorPickerSettings.UsingCustomPalette)
+            {
+                SaveCustomPalette(ColorPickerSettings.CustomPaletteFilename);
+            }
         }
 
 
@@ -384,7 +400,7 @@ namespace ColorPickerWPF
 
         public void LoadDefaultCustomPalette()
         {
-            LoadCustomPalette(Settings.Default.DefaultColorPaletteFilename);
+            LoadCustomPalette(Path.Combine(ColorPickerSettings.CustomColorsDirectory, ColorPickerSettings.CustomColorsFilename));
         }
 
     }

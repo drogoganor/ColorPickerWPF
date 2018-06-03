@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace ColorPickerWPF.Code
 {
     [Serializable]
-    public class ColorPalette : WriteableFileObject<ColorPalette>
+    public class ColorPalette
     {
         public List<ColorSwatchItem> BuiltInColors { get; set; }
 

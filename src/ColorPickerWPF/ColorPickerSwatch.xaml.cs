@@ -16,6 +16,8 @@ namespace ColorPickerWPF
     {
         public delegate void ColorSwatchPickHandler(Color color);
 
+        public static ColorPickerControl ColorPickerControl { get; set; }
+
         public event ColorSwatchPickHandler OnPickColor;
 
         public bool Editable { get; set; }
@@ -43,6 +45,11 @@ namespace ColorPickerWPF
                     data.Color = CurrentColor;
                     data.HexString = CurrentColor.ToHexString();
                 }
+
+                if (ColorPickerControl != null)
+                {
+                    ColorPickerControl.CustomColorsChanged();
+                }
             }
             else
             {
@@ -54,7 +61,7 @@ namespace ColorPickerWPF
         }
 
 
-        public List<ColorSwatchItem> GetColors()
+        internal List<ColorSwatchItem> GetColors()
         {
             var results = new List<ColorSwatchItem>();
 

@@ -11,8 +11,11 @@ namespace ColorPickerWPF
     /// </summary>
     public partial class ColorPickRow : UserControl
     {
-        public Color Color;
         public event EventHandler OnPick;
+
+        public Color Color { get; set; }
+        
+        public ColorPickerDialogOptions Options { get; set; }
 
         public ColorPickRow()
         {
@@ -22,7 +25,7 @@ namespace ColorPickerWPF
         private void PickColorButton_OnClick(object sender, RoutedEventArgs e)
         {
             Color color;
-            if (ColorPickerWindow.ShowDialog(out color))
+            if (ColorPickerWindow.ShowDialog(out color, Options))
             {
                 SetColor(color);
                 OnPick?.Invoke(this, EventArgs.Empty);
