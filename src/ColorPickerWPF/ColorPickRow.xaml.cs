@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using ColorPickerWPF.Code;
 using UserControl = System.Windows.Controls.UserControl;
@@ -11,6 +12,7 @@ namespace ColorPickerWPF
     public partial class ColorPickRow : UserControl
     {
         public Color Color;
+        public event EventHandler OnPick;
 
         public ColorPickRow()
         {
@@ -23,6 +25,7 @@ namespace ColorPickerWPF
             if (ColorPickerWindow.ShowDialog(out color))
             {
                 SetColor(color);
+                OnPick?.Invoke(this, EventArgs.Empty);
             }
         }
 
