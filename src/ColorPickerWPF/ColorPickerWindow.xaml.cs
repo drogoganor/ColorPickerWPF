@@ -20,7 +20,7 @@ namespace ColorPickerWPF
             InitializeComponent();
         }
         
-        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null)
+        public static bool ShowDialog(out Color color, Color? seedColor = null, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null)
         {
             if ((flags & ColorPickerDialogOptions.LoadCustomPalette) == ColorPickerDialogOptions.LoadCustomPalette)
             {
@@ -28,6 +28,7 @@ namespace ColorPickerWPF
             }
 
             var instance = new ColorPickerWindow();
+            instance.ColorPicker.SetColor(seedColor ?? Colors.White);
             color = instance.ColorPicker.Color;
 
             if ((flags & ColorPickerDialogOptions.SimpleView) == ColorPickerDialogOptions.SimpleView)

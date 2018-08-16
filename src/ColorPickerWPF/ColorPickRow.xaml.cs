@@ -25,7 +25,7 @@ namespace ColorPickerWPF
         private void PickColorButton_OnClick(object sender, RoutedEventArgs e)
         {
             Color color;
-            if (ColorPickerWindow.ShowDialog(out color, Options))
+            if (ColorPickerWindow.ShowDialog(out color, seedColor: Color, flags: Options))
             {
                 SetColor(color);
                 OnPick?.Invoke(this, EventArgs.Empty);
