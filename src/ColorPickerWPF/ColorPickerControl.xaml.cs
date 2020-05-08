@@ -205,7 +205,7 @@ namespace ColorPickerWPF
         private void ColorPickerControl2_MouseMove(object sender, MouseEventArgs e)
         {
             var pos = e.GetPosition(SampleImage2);
-            var img = SampleImage.Source as BitmapSource;
+            var img = SampleImage2.Source as BitmapSource;
 
             if (pos.X > 0 && pos.Y > 0 && pos.X < img.PixelWidth && pos.Y < img.PixelHeight)
                 SampleImageClick(img, pos);
