@@ -355,6 +355,11 @@ namespace ColorPickerWPF
             SampleImage2.Source = writableImage;
         }
 
+        private void OnPicker2Selected(object sender, RoutedEventArgs e)
+        {
+            PickerHueSlider.Value = Color.GetHue();
+        }
+
         private void LSlider_OnOnValueChanged(double value)
         {
             if (!IsSettingValues)
