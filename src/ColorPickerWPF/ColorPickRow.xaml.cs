@@ -25,7 +25,12 @@ namespace ColorPickerWPF
         private void PickColorButton_OnClick(object sender, RoutedEventArgs e)
         {
             Color color;
-            if (ColorPickerWindow.ShowDialog(out color, Options))
+            Color? initialColor = null;
+            if(ColorDisplayGrid.Background is SolidColorBrush scb)
+            {
+                initialColor = scb.Color;
+            }
+            if (ColorPickerWindow.ShowDialog(out color, Options, initialColor:initialColor))
             {
                 SetColor(color);
                 OnPick?.Invoke(this, EventArgs.Empty);

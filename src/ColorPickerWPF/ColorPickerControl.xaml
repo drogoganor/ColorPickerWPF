@@ -27,7 +27,7 @@
 			                MouseDown="SampleImage_OnMouseDown"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Picker 2">
+				<TabItem Header="Picker 2" Selector.Selected="OnPicker2Selected" >
                     <Grid>
                         <Image x:Name="SampleImage2" Source="pack://application:,,,/ColorPickerWPF;component/Resources/colorpicker2.png" HorizontalAlignment="Left" Margin="2" VerticalAlignment="Top"
                                Width="254" Height="254"
